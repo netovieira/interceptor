@@ -11,6 +11,9 @@ var MongoClient = require('mongodb').MongoClient;
 console.log('Mongo loaded');
 
 var app = express();
+var Router = express.Router();
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
