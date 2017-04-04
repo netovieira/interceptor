@@ -1,8 +1,8 @@
+'use strict';
+
 module.exports = {
-	Model: function(db){
-		return db.collection('products');
-	},
+    Name: 'products',
 	Schema: {
-		name : { type: 'string', required: true }
+        name: {type: 'string', required: true}
 	}
 };

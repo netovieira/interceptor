@@ -1,20 +1,26 @@
-var Controller = require('./controllers/Controller');
-var Collection = require('./models/Product');
+'use strict';
+
+var Controller = require('./Controller');
+var Collection = require('../models/Product');
+
 
 module.exports = {
-	Create: function(data){
-		return Controller.Create(Collection, data);
-	},
-	Update: function(data, id){
-		return Controller.Update(Collection, data, id);
-	},
-	Remove: function(id){ 
-		return Controller.Remove(Collection, id);
-	},
-	GetOne: function(id){ 
-		return Controller.GetOne(Collection, id);
-	},
-	GetAll: function(){ 
-		return Controller.Get(Collection, {}); 
-	}
-}
+    Create: function (data, callBack) {
+        return Controller.Create(Collection, data, callBack);
+    },
+    Update: function (data, id, callBack) {
+        return Controller.Update(Collection, data, id, callBack);
+    },
+    Remove: function (id, callBack) {
+        return Controller.Remove(Collection, id, callBack);
+    },
+    Get: function (query, callBack) {
+        return Controller.GetOne(Collection, query, callBack);
+    },
+    GetOne: function (id, callBack) {
+        return Controller.GetOne(Collection, id, callBack);
+    },
+    GetAll: function (callBack) {
+        return Controller.Get(Collection, {}, callBack);
+    }
+};

@@ -1,9 +1,11 @@
-var Var = require('./helpers/variables');
+'use strict';
+
+var Var = require('./variables');
 
 module.exports = {
 	validate: function(Schema, data)
 	{
-		for( prop in data){
+        for (var prop in data) {
 			if ( !Schema.hasOwnProperty(prop) ) {
 				return false;
 			}
@@ -18,11 +20,11 @@ module.exports = {
 	},
 	fill: function(obj, data){
 		var objReturn = {};
-		for( prop in data){
-			if ( obj[prop] != data[prop])
+        for (var prop in data) {
+            if (obj[prop] !== data[prop])
 				objReturn[prop] = data[prop];
 		}
 		return objReturn;
 	}
-} 
+};
 

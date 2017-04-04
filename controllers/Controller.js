@@ -1,35 +1,82 @@
-var Schema = require('./helpers/schema');
+'use strict';
+
+var Schema = require('../helpers/schema');
+var Model = require('../models/Model');
 
 module.exports = {
-	Create: function(Collection, data){
-		if ( Schema.validate(Collection.Schema, data))
-			Collection.Model.insert(data, function(err, doc){
-					return { error:err, data:doc };
-			});
+    Create: function (Collection, data, callBack) {
+        if (Schema.validate(Collection.Schema, data)) {
+
+            Model.Connect(function (err, db) {
+
+                db.collection(Collection.Name).insertOne(data, {}, function (err, doc) {
+
+                    callBack(err, doc);
+                    db.close();
+
+                });
+            });
+        }
 	},
-	Update: function(Collection, data, id){
-		if ( Schema.validate(Collection.Schema, data))
-			Collection.Model.findOne({_id: id}, function(err, obj){
-				var updateData = Schema.fill(obj, data);
-				Collection.Model.update({_id: id}, [{$set: updateData} function(err, newobj)){
-					return { error:err, data:newobj };
-				}
-			}]);
+    Update: function (Collection, data, id, callBack) {
+        if (Schema.validate(Collection.Schema, data)) {
+
+            Model.Connect(function (err, db) {
+
+                db.collection(Collection.Name).findOne({_id: id}, function (err, obj) {
+
+                    var updateData = Schema.fill(obj, data);
+
+                    db.collection(Collection.Name).updateOne({_id: id}, [{$set: updateData}, function (err, newobj) {
+
+                        callBack(err, newobj);
+                        db.close();
+
+                    }]);
+
+                });
+            });
+        }
 	},
-	Remove: function(Collection, id){
-		Collection.Model.remove({_id : id}, function(err){
-					return { removed:!err, error:err, data:null };
-		});
+    Remove: function (Collection, id, callBack) {
+
+        Model.Connect(function (err, db) {
+
+            db.collection(Collection.Name).removeOne({_id: id}, function (err) {
+
+                callBack(err, doc);
+                db.close();
+
+            });
+
+        });
 	},
-	GetOne: function(Collection, id){
-		Collection.Model.findOne({_id : id}, function(err,doc){
-					return { error:err, data:doc };
-		});
+    GetOne: function (Collection, id, callBack) {
+
+        Model.Connect(function (err, db) {
+
+            db.collection(Collection.Name).findOne({_id: id}, function (err, doc) {
+
+                callBack(err, doc);
+                db.close();
+
+            });
+
+        });
 	},
-	Get: function(Collection, query){
-		Collection.Model.find(query, function(err,doc){
-					return { error:err, data:doc };
-		});
+    Get: function (Collection, query, callBack) {
+
+        console.log(Collection);
+        Model.Connect(function (err, db) {
+
+            db.collection(Collection.Name).find(query).toArray(function (err, doc) {
+
+                callBack(err, doc);
+                db.close();
+
+            });
+
+        });
 	}
-}
+};
 
