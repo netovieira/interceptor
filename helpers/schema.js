@@ -9,10 +9,10 @@ module.exports = {
 			if ( !Schema.hasOwnProperty(prop) ) {
 				return false;
 			}
-			else if ( Var.IsNull(data[prop]) && Schema[prop].required ){
+			else if ( Var.isNull(data[prop]) && Schema[prop].required ){
 				return false;
 			}	
-			else if ( !Var.is( Schema[prop].type, data[prop] && !Var.IsNull(data[prop]) ) ){
+			else if ( !Var.is( Schema[prop].type, data[prop]) && !Var.isNull(data[prop]) ){
 				return false;
 			}
 		}
