@@ -2,12 +2,18 @@
 
 var Schema = require('../helpers/schema');
 var Model = require('../models/Model');
+var ObjectId = require('mongodb').ObjectId;
 
 module.exports = {
     Create: function (Collection, data, callBack) {
         if (Schema.validate(Collection.Schema, data)) {
 
             Model.Connect(function (err, db) {
+
+                if(err){
+                    callBack(err, '');
+                    return false;
+                }
 
                 db.collection(Collection.Name).insertOne(data, {}, function (err, doc) {
 
@@ -19,13 +25,23 @@ module.exports = {
         }
 	},
     Update: function (Collection, data, id, callBack) {
+
+        id = new ObjectId(id);
+
         if (Schema.validate(Collection.Schema, data)) {
 
             Model.Connect(function (err, db) {
 
+                if(err){
+                    callBack(err, '');
+                    return false;
+                }
+
                 db.collection(Collection.Name).findOne({_id: id}, function (err, obj) {
 
                     var updateData = Schema.fill(obj, data);
+
+                    console.log(updateData);
 
                     db.collection(Collection.Name).updateOne({_id: id}, [{$set: updateData}, function (err, newobj) {
 
@@ -40,9 +56,16 @@ module.exports = {
 	},
     Remove: function (Collection, id, callBack) {
 
+        id = new ObjectId(id);
+
         Model.Connect(function (err, db) {
 
-            db.collection(Collection.Name).removeOne({_id: id}, function (err) {
+            if(err){
+                callBack(err, '');
+                return false;
+            }
+
+            db.collection(Collection.Name).remove({_id: id}, { justOne: true }, function (err, doc) {
 
                 callBack(err, doc);
                 db.close();
@@ -50,10 +73,17 @@ module.exports = {
             });
 
         });
-	},
+    },
     GetOne: function (Collection, id, callBack) {
 
+        id = new ObjectId(id);
+
         Model.Connect(function (err, db) {
+
+            if(err){
+                callBack(err, '');
+                return false;
+            }
 
             db.collection(Collection.Name).findOne({_id: id}, function (err, doc) {
 
@@ -66,11 +96,15 @@ module.exports = {
 	},
     Get: function (Collection, query, callBack) {
 
-        console.log(Collection);
         Model.Connect(function (err, db) {
 
-            db.collection(Collection.Name).find(query).toArray(function (err, doc) {
+            if(err){
+                callBack(err, '');
+                return false;
+            }
 
+            db.collection(Collection.Name).find(query).toArray(function (err, doc) {
+                console.log(err, doc);
                 callBack(err, doc);
                 db.close();
 
