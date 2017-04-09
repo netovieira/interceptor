@@ -20,9 +20,9 @@ module.exports = {
 	},
 	fill: function(obj, data){
 		var objReturn = {};
-        for (var prop in data) {
-            if (obj[prop] !== data[prop])
-				objReturn[prop] = data[prop];
+    for (var prop in data) {
+      if (obj[prop] !== data[prop])
+        objReturn[prop] = data[prop];
 		}
 		return objReturn;
 	}
