@@ -1,21 +1,39 @@
 'use strict';
 
 
-var express = require('express');
-console.log('Express loaded');
+var port = 3000;
 
+var express = require('express');
+var session = require('express-session');
+var passport = require('passport');
+var flash = require('connect-flash');
 var bodyParser = require('body-parser');
-console.log('bodyParser loaded');
+var cookieParser = require('cookie-parser');
+var morgan = require('morgan');
 
 var app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(morgan('dev')); // log every request to the console
+app.use(bodyParser.json()); // get information from html forms
+app.use(bodyParser.urlencoded({extended: true}));
 
-require('./routes/routes')(app);
+app.use(session({
+    secret: 'takeTheMachineGunAndTraTraTra', // session secret
+    name: 'interceptor_session',
+    resave: true,
+    saveUninitialized: true
+}));
 
-app.listen(3000, function () {
-    console.log('');
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+//call routes
+require('./api/routes/routes')(app);
+require('./routes')(app, passport);
+
+app.listen(port, function () {
     console.log('');
     console.log('Servidor rodando!');
 });
