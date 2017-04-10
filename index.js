@@ -9,9 +9,11 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var mongoose = require('mongoose');
 var morgan = require('morgan');
 
 var app = express();
+mongoose.connect(require('./config/database').url);
 
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(morgan('dev')); // log every request to the console
@@ -31,7 +33,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 //call routes
 require('./api/routes/routes')(app);
-require('./routes')(app, passport);
+require('./api/routes/Passport')(app, passport);
 
 app.listen(port, function () {
     console.log('');
