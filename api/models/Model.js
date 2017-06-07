@@ -2,7 +2,6 @@
 
 var mongoose = require('mongoose');
 var Extend = require('node.extend');
-
 var ModelSchema = {
     inserted_at: {type: Date, default: null},
     updated_at: {type: Date, default: null},
