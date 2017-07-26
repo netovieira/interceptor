@@ -1,0 +1,37 @@
+{
+  "name": "shopping-list",
+  "version": "0.1.0",
+  "description": "A Shopping List app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/netovieira/interceptor.git"
+  },
+  "keywords": [
+    "interceptor"
+  ],
+  "author": "Anthero Vieira Neto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/netovieira/interceptor/issues"
+  },
+  "homepage": "https://github.com/netovieira/interceptor#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "mongoose": "^4.9.4",
+    "morgan": "^1.8.1",
+    "node.extend": "^1.1.6",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0"
+  }
+}
