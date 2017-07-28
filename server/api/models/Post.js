@@ -2,20 +2,20 @@
 
 var mongoose = require('mongoose');
 var model = require('./Model');
-var ObjectId = mongoose.Types.ObjectId;
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var PostSchema = model({
     subject: String,
     text: String,
     user:{
-        _id: mongoose.Schema.ObjectId,
+        _id: ObjectId,
         name: String,
         image: String
     },
     comments:[{
         text: String,
         user:{
-            _id: mongoose.Schema.ObjectId,
+            _id: ObjectId,
             name: String,
             image: String
         }

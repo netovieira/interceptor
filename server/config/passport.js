@@ -12,7 +12,7 @@ var configAuth = require('./auth'); // use this one for testing
 module.exports = function (passport, lang) {
 
     lang = lang || 'en';
-    var Strings = require('../strings/en/strings.json');
+    var Strings = require('../strings/'+lang+'/strings.json');
 
     // =========================================================================
     // passport session setup ==================================================

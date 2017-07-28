@@ -2,15 +2,15 @@
 
 var mongoose = require('mongoose');
 var model = require('./Model');
-var ObjectId = mongoose.Types.ObjectId;
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var ListSchema = model({
     name: String,
-    user_id: mongoose.Schema.ObjectId,
+    user_id: ObjectId,
     downloads: { type: Number, default: 0 },
     recipe: { type: Boolean, default: false },
     items:[{
-        _id: { type: mongoose.Schema.ObjectId, default: new ObjectId},
+        _id: { type: ObjectId, default: new ObjectId},
         name: String,
         amount: { type: Number, default: 0 },
         brand: String,
@@ -20,7 +20,7 @@ var ListSchema = model({
         }
     }],
     address:{
-        _id: { type: mongoose.Schema.ObjectId, default: new ObjectId},
+        _id: { type: ObjectId, default: new ObjectId},
         street: String,
         number: Number,
         complement: String,
@@ -33,7 +33,7 @@ var ListSchema = model({
         }
     },
     executor:{
-        _id: mongoose.Schema.ObjectId,
+        _id: ObjectId,
         name: String
     },
     when:{

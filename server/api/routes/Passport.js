@@ -4,7 +4,7 @@ module.exports = function (app, passport) {
 
     // show the home page (will also have our login links)
     app.get('/', function (req, res) {
-        res.send('Hello world!')
+        res.send('Hello world! : )')
     });
 
     // PROFILE SECTION =========================
@@ -39,10 +39,6 @@ module.exports = function (app, passport) {
     }));
 
     // SIGNUP =================================
-    // show the signup form
-    app.get('/signup', function (req, res) {
-        res.json({message: req.flash('signupMessage')});
-    });
 
     // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {

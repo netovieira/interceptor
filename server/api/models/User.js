@@ -21,17 +21,17 @@ var userSchema = mongoose.Schema({
         email: String
     },
     favorites:[{
-        _id: mongoose.Types.ObjectId,
+        _id: mongoose.Schema.Types.ObjectId,
         name: String,
         tags:[{tag: String}]
     }],
     followers:[{
-        _id: mongoose.Types.ObjectId,
+        _id: mongoose.Schema.Types.ObjectId,
         name: String,
         image: String
     }],
     following:[{
-        _id: mongoose.Types.ObjectId,
+        _id: mongoose.Schema.Types.ObjectId,
         name: String,
         image: String
     }]
